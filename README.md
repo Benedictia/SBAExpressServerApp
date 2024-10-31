@@ -1,5 +1,5 @@
 # SBAExpressServerApp
-the purpose of this assignment is to assess student's understanding of Node and Expres and how to implement their features in a practical manner.
+The purpose of this assignment is to assess student's understanding of Node and Expres and how to implement their features in a practical manner.
 
 Objectives
 Create a server application with Node and Express.
