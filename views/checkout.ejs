@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+    <h2>Your Cart</h2>
+    <ul>
+        <% if (cart && cart.length > 0) { %>
+            <% cart.forEach(item => { %>
+                <li>
+                    <%= item.snackName %> - Quantity: <%= item.quantity %> - Total: $<%= (item.price * item.quantity).toFixed(2) %>
+                </li>
+            <% }); %>
+            <li>
+                <strong>Total Price: $<%= cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2) %></strong>
+            </li>
+        <% } else { %>
+            <li>Your cart is empty.</li>
+        <% } %>
+    </ul>
+    <form action="/confirm-checkout" method="POST">
+        <button type="submit">Confirm Checkout</button>
+    </form>
+    <a href="/">Back to Home</a>
+</body>
+</html>

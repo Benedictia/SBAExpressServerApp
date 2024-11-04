@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Snack Shop</title>
+</head>
+<body>
+    <h1>Welcome to Esquisite Snacks</h1>
+
+    <h2>Your Cart</h2>
+
+    <div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <% if (user) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <ul id="cart">
+        <% if (cart && cart.length > 0) { %>
+            <% cart.forEach(item => { %>
+                <li><%= item.snackName %> - Quantity: <%= item.quantity %> - Total: $<%= (item.price * item.quantity).toFixed(2) %></li>
+            <% }); %>
+        <% } else { %>
+            <li>Your cart is empty.</li>
+        <% } %>
+    </ul>
+
+    <form action="/checkout" method="GET">
+        <button type="submit" <% if (!cart || cart.length === 0) { %>disabled<% } %>>Checkout</button>
+    </form>
+
+    <div id="snack-list">
+        <% snacks.forEach(snack => { %>
+            <div class="snack-item">
+                <img src="<%= snack.image %>" alt="<%= snack.name %>" style="width:100%; height:auto;">
+                <h2><%= snack.name %></h2>
+                <p><%= snack.description %></p>
+                <p>Price: $<%= snack.price.toFixed(2) %></p>
+                <form action="/add-to-cart" method="POST">
+                    <input type="hidden" name="snackName" value="<%= snack.name %>">
+                    <input type="number" name="quantity" min="1" value="1" required>
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+        <% }); %>
+    </div>
+</body>
+</html>
